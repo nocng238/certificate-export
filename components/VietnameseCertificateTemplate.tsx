@@ -33,7 +33,7 @@ const VietnameseCertificateTemplate = forwardRef<
   return (
     <div
       ref={ref}
-      className={`relative w-full max-w-7xl mx-auto overflow-hidden bg-white certificate-template ${className} 
+      className={`relative w-[1100px] h-[750px] mx-auto overflow-hidden bg-white certificate-template ${className} 
         shadow-lg border border-gray-200`}
       style={{
         aspectRatio: "5097/3600",

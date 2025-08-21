@@ -89,24 +89,6 @@ export default function CertificateEditor({
                 {certificates.length} certificate
                 {certificates.length !== 1 ? "s" : ""} loaded
               </p>
-              <div className="flex gap-2 mt-3">
-                <Button
-                  variant={
-                    templateType === "vietnamese" ? "default" : "outline"
-                  }
-                  size="sm"
-                  onClick={() => setTemplateType("vietnamese")}
-                >
-                  Vietnamese Template
-                </Button>
-                <Button
-                  variant={templateType === "standard" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setTemplateType("standard")}
-                >
-                  Standard Template
-                </Button>
-              </div>
             </div>
             <Button
               onClick={handleExportAll}
@@ -257,7 +239,7 @@ export default function CertificateEditor({
             <CardContent>
               {selectedCertificate ? (
                 <div className="border rounded-lg overflow-hidden bg-white p-4">
-                  <div className="w-full">
+                  <div className="w-full overflow-x-auto">
                     <VietnameseCertificateTemplate
                       data={selectedCertificate}
                       className="w-full h-auto"
