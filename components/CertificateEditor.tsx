@@ -127,7 +127,7 @@ export default function CertificateEditor({
         </CardHeader>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Certificate List & Editor */}
         <div className="lg:col-span-1 space-y-4">
           <Card>
@@ -296,6 +296,7 @@ export default function CertificateEditor({
                   <Eye className="w-5 h-5" />
                   Live Preview
                 </CardTitle>
+
                 {selectedCertificate && (
                   <Button
                     onClick={() => handleExportSingle(selectedCertificate)}

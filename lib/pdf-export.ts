@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import React from "react";
 import { CertificateData } from "@/types/certificate";
-import { CertificatePDFTemplate } from "@/components/CertificatePDFTemplate";
+import VietnameseCertificateTemplate from "@/components/VietnameseCertificateTemplate";
 
 export const exportToPDF = async (certificate: CertificateData) => {
   try {
@@ -12,14 +12,12 @@ export const exportToPDF = async (certificate: CertificateData) => {
     container.style.position = "fixed";
     container.style.top = "-10000px";
     container.style.left = "-10000px";
-    container.style.width = "210mm";
-    container.style.height = "297mm";
     container.style.backgroundColor = "white";
     container.style.fontFamily = "Times New Roman, serif";
 
     // Render React component to HTML string
     const certificateHTML = renderToString(
-      React.createElement(CertificatePDFTemplate, { certificate })
+      React.createElement(VietnameseCertificateTemplate, { data: certificate })
     );
 
     container.innerHTML = certificateHTML;
@@ -30,23 +28,25 @@ export const exportToPDF = async (certificate: CertificateData) => {
     const canvas = await html2canvas(container, {
       scale: 2,
       useCORS: true,
+
       backgroundColor: "#ffffff",
-      width: 794, // A4 width in pixels at 96 DPI
-      height: 1123, // A4 height in pixels at 96 DPI
+      width: container.getBoundingClientRect().width, // Match container width
+      height: container.getBoundingClientRect().height, // Match container height
     });
 
     // Remove the temporary container
     document.body.removeChild(container);
 
-    // Create PDF
+    // Create PDF in landscape format to match the Vietnamese certificate aspect ratio
     const pdf = new jsPDF({
-      orientation: "portrait",
+      orientation: "landscape",
       unit: "mm",
       format: "a4",
     });
 
     const imgData = canvas.toDataURL("image/png");
-    pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
+    // Use landscape A4 dimensions: 297mm x 210mm
+    pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
 
     // Save the PDF
     const filename = `certificate-${certificate.name
@@ -62,7 +62,7 @@ export const exportToPDF = async (certificate: CertificateData) => {
 export const exportAllToPDF = async (certificates: CertificateData[]) => {
   try {
     const pdf = new jsPDF({
-      orientation: "portrait",
+      orientation: "landscape",
       unit: "mm",
       format: "a4",
     });
@@ -75,14 +75,16 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
       container.style.position = "fixed";
       container.style.top = "-10000px";
       container.style.left = "-10000px";
-      container.style.width = "210mm";
-      container.style.height = "297mm";
+      container.style.width = "1400px";
+      container.style.height = "990px";
       container.style.backgroundColor = "white";
       container.style.fontFamily = "Times New Roman, serif";
 
       // Render React component to HTML string
       const certificateHTML = renderToString(
-        React.createElement(CertificatePDFTemplate, { certificate })
+        React.createElement(VietnameseCertificateTemplate, {
+          data: certificate,
+        })
       );
 
       container.innerHTML = certificateHTML;
@@ -93,8 +95,8 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
         scale: 2,
         useCORS: true,
         backgroundColor: "#ffffff",
-        width: 794,
-        height: 1123,
+        width: container.getBoundingClientRect().width, // Match container width
+        height: container.getBoundingClientRect().height,
       });
 
       document.body.removeChild(container);
@@ -105,7 +107,7 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
         pdf.addPage();
       }
 
-      pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
+      pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
     }
 
     const filename = `all-certificates-${Date.now()}.pdf`;

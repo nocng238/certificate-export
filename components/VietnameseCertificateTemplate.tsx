@@ -1,207 +1,155 @@
-'use client';
+import { CertificateData } from "@/types/certificate";
+import { forwardRef } from "react";
+import BackgroundImage from "@/assets/background.svg"; // Adjust the path as necessary
+import Image from "next/image";
+import LeaderSign from "@/assets/sign.png";
+import Leader from "@/assets/leader.png";
+import Banner from "@/assets/banner.png";
+import LogoBottom from "@/assets/img-bottom.svg";
+import {
+  Pinyon_Script,
+  Oleo_Script_Swash_Caps,
+  Be_Vietnam_Pro,
+} from "next/font/google";
+import { cn } from "@/lib/utils";
 
-import { CertificateData } from '@/types/certificate';
-import { forwardRef } from 'react';
+const pinyonScript = Pinyon_Script({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+});
 
+const oleoScriptSwashCaps = Oleo_Script_Swash_Caps({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  weight: "700",
+});
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  weight: "700",
+});
 interface VietnameseCertificateTemplateProps {
   data: CertificateData;
   className?: string;
 }
 
-const VietnameseCertificateTemplate = forwardRef<HTMLDivElement, VietnameseCertificateTemplateProps>(
-  ({ data, className = '' }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={`relative w-full max-w-4xl mx-auto overflow-hidden bg-white certificate-template ${className}`}
-        style={{
-          backgroundColor: '#ffffff',
-          aspectRatio: '5097/3600',
-          minHeight: '300px',
-        }}
-      >
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/5b9fa339d0dd98006b7b8dc9e274b161d7cc64b3?width=10194)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
+const VietnameseCertificateTemplate = forwardRef<
+  HTMLDivElement,
+  VietnameseCertificateTemplateProps
+>(({ data, className = "" }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={`relative w-full max-w-7xl mx-auto overflow-hidden bg-white certificate-template ${className} 
+        shadow-lg border border-gray-200`}
+      style={{
+        aspectRatio: "5097/3600",
+        minHeight: "clamp(400px, 60vw, 800px)",
+        maxHeight: "90vh",
+        backgroundImage: `url(${BackgroundImage.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="h-full relative overlow-auto flex flex-col justify-between px-16 py-[60px]">
+        <div className="flex-shrink-0">
+          <div className="w-full max-w-2xl mx-auto mb-6">
+            <Image
+              src={Banner.src}
+              alt="Banner"
+              className="w-full h-40 object-cover"
+              width={100}
+              height={100}
+            />
+          </div>
 
-        {/* Title Banner Image */}
-        <div
-          className="absolute"
-          style={{
-            width: '67.7%',
-            height: '23.1%',
-            left: '16.1%',
-            top: '9.3%',
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/50fd2b3cb5c2ce822ea32fd8efa007c157d74015?width=6902)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-          }}
-        />
-
-        {/* Seal/Logo Image */}
-        <div
-          className="absolute"
-          style={{
-            width: '15.7%',
-            height: '15.7%',
-            left: '42.2%',
-            top: '73%',
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/67610b2887512ad923f8bea54ad3110a5010026d?width=1374)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-          }}
-        />
-
-        {/* Footer Banner Image */}
-        <div
-          className="absolute"
-          style={{
-            width: '19%',
-            height: '5.3%',
-            left: '62.3%',
-            top: '85.7%',
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/47fe24d2ebc53dffa2b2178ddef127c5b8d7fbb5?width=1938)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-          }}
-        />
-
-        {/* Certificate Background Banner */}
-        <div
-          className="absolute"
-          style={{
-            width: '52%',
-            height: '10.6%',
-            left: '24%',
-            top: '39.4%',
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/ca1a70895f6ec3be3045de0558d72fe60a1fcdad?width=5300)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-          }}
-        />
-
-        {/* Name */}
-        <div
-          className="absolute text-center flex items-center justify-center px-2"
-          style={{
-            width: '49%',
-            height: '9.7%',
-            left: '25.4%',
-            top: '41.5%',
-            color: '#923137',
-            fontFamily: 'Nova Cut, -apple-system, Roboto, Helvetica, sans-serif',
-            fontSize: 'clamp(1.5rem, 5.5vw, 8rem)',
-            fontWeight: '400',
-            lineHeight: '1.2',
-          }}
-        >
-          {data.name}
+          <div className="text-center mb-2">
+            <h2 className="text-red-700 font-medium text-sm sm:text-base md:text-lg lg:text-xl">
+              DỰ ÁN NUÔI EM XÁC NHẬN:
+            </h2>
+          </div>
         </div>
 
-        {/* Date of Birth */}
-        <div
-          className="absolute text-center flex items-center justify-center px-2"
-          style={{
-            width: '20.8%',
-            height: '1.4%',
-            left: '40.8%',
-            top: '51.7%',
-            color: '#000000',
-            fontFamily: 'Source Sans Pro, -apple-system, Roboto, Helvetica, sans-serif',
-            fontSize: 'clamp(0.8rem, 1.8vw, 2.2rem)',
-            fontWeight: '400',
-            lineHeight: '1.2',
-          }}
-        >
-          Sinh ngày {data.dob}
+        <div className="flex-grow flex flex-col justify-center items-center text-center px-4">
+          <p
+            className={cn(
+              oleoScriptSwashCaps.className,
+              "text-[#923137] bg-orange-100 leading-relaxed"
+            )}
+            style={{
+              fontSize: "4rem",
+            }}
+          >
+            {data.name}
+          </p>
+
+          <div className="mb-2">
+            <p
+              className="text-black text-xl mt-2"
+              style={{
+                fontFamily:
+                  "Source Sans Pro, -apple-system, Roboto, Helvetica, sans-serif",
+              }}
+            >
+              Sinh ngày {data.dob}
+            </p>
+          </div>
+
+          <div className="mb-4">
+            <div
+              className={cn(
+                "text-[#923137] text-3xl leading-relaxed space-y-2",
+                pinyonScript.className
+              )}
+            >
+              <p>Đã tham gia là tình nguyện viên hỗ trợ Dự án Nuôi Em</p>
+              <p>
+                Từ tháng {data.time_join} đến tháng {data.time_leave}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Project Confirmation Text */}
-        <div
-          className="absolute text-center flex items-center justify-center px-2"
-          style={{
-            width: '22.2%',
-            height: '1.7%',
-            left: '37.9%',
-            top: '34.2%',
-            color: '#923137',
-            fontFamily: 'Inter, -apple-system, Roboto, Helvetica, sans-serif',
-            fontSize: 'clamp(0.8rem, 2vw, 2.5rem)',
-            fontWeight: '400',
-            lineHeight: '1.2',
-          }}
-        >
-          DỰ ÁN NUÔI EM XÁC NHẬN:
+        <div className="flex justify-center items-center p-4 relative">
+          <Image
+            alt="logo-bottom"
+            src={LogoBottom.src}
+            width={200}
+            height={200}
+          />
+          <div className="flex flex-col items-center absolute bottom-4 left-3/4 transform -translate-x-1/2">
+            <div className="text-center">
+              <p className="text-black text-xs sm:text-sm md:text-base mb-1">
+                Hà Nội, ngày {data.issuedDate || "10/02/2025"}
+              </p>
+              <p
+                className="text-black text-xs sm:text-sm md:text-base"
+                style={{
+                  fontFamily:
+                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                }}
+              >
+                Nhóm tình nguyện Niềm Tin
+              </p>
+            </div>
+            <Image src={LeaderSign.src} alt="Seal" width={140} height={100} />
+            <Image
+              className=" mt-2"
+              src={Leader.src}
+              alt="Leader"
+              width={200}
+              height={100}
+            />
+          </div>
         </div>
-
-        {/* Participation Details */}
-        <div
-          className="absolute text-center flex flex-col items-center justify-center px-2"
-          style={{
-            width: '54.5%',
-            height: '8.8%',
-            left: '22.9%',
-            top: '58.5%',
-            color: '#923137',
-            fontFamily: 'Inter, -apple-system, Roboto, Helvetica, sans-serif',
-            fontSize: 'clamp(1rem, 2.5vw, 3.2rem)',
-            fontWeight: '400',
-            lineHeight: '1.4',
-          }}
-        >
-          <div className="mb-2">Đã tham gia là tình nguyện viên hỗ trợ Dự án Nuôi Em</div>
-          <div>Từ tháng {data.time_join} đến tháng {data.time_leave}</div>
-        </div>
-
-        {/* Date and Organization */}
-        <div
-          className="absolute text-center flex flex-col items-center justify-center px-1"
-          style={{
-            width: '17.8%',
-            height: '5.3%',
-            left: '62.9%',
-            top: '70.5%',
-            color: '#000000',
-            fontFamily: 'Inter, -apple-system, Roboto, Helvetica, sans-serif',
-            fontSize: 'clamp(0.6rem, 1.6vw, 2rem)',
-            fontWeight: '400',
-            lineHeight: '1.3',
-          }}
-        >
-          <div>Hà Nội, ngày {data.issuedDate || '10/02/2025'}</div>
-          <div>Nhóm tình nguyện Niềm Tin</div>
-        </div>
-
-        {/* Signature Image */}
-        <div
-          className="absolute"
-          style={{
-            width: '13.5%',
-            height: '9.6%',
-            left: '65.9%',
-            top: '76.1%',
-            backgroundImage: 'url(https://api.builder.io/api/v1/image/assets/TEMP/67610b2887512ad923f8bea54ad3110a5010026d?width=1374)',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center'
-          }}
-        />
       </div>
-    );
-  }
-);
+    </div>
+  );
+});
 
-VietnameseCertificateTemplate.displayName = 'VietnameseCertificateTemplate';
+VietnameseCertificateTemplate.displayName = "VietnameseCertificateTemplate";
 
 export default VietnameseCertificateTemplate;
