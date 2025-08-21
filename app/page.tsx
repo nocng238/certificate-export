@@ -96,45 +96,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Features Grid */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <Card className="text-center">
-                <CardHeader className="pb-4">
-                  <Upload className="w-8 h-8 mx-auto text-teal-600 mb-2" />
-                  <CardTitle className="text-lg">Easy Upload</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Simply drag and drop your CSV file with participant data
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center">
-                <CardHeader className="pb-4">
-                  <Edit3 className="w-8 h-8 mx-auto text-yellow-600 mb-2" />
-                  <CardTitle className="text-lg">Real-time Editing</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Edit certificate details with live preview updates
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center">
-                <CardHeader className="pb-4">
-                  <Download className="w-8 h-8 mx-auto text-green-600 mb-2" />
-                  <CardTitle className="text-lg">PDF Export</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600">
-                    Export individual or batch certificates as high-quality PDFs
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
             {/* CSV Uploader */}
             <CsvUploader onDataLoaded={handleDataLoaded} />
           </div>

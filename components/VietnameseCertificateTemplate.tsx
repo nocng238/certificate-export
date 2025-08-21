@@ -6,11 +6,7 @@ import LeaderSign from "@/assets/sign.png";
 import Leader from "@/assets/leader.png";
 import Banner from "@/assets/banner.png";
 import LogoBottom from "@/assets/img-bottom.svg";
-import {
-  Pinyon_Script,
-  Oleo_Script_Swash_Caps,
-  Be_Vietnam_Pro,
-} from "next/font/google";
+import { Pinyon_Script, Oleo_Script_Swash_Caps } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const pinyonScript = Pinyon_Script({
@@ -25,11 +21,6 @@ const oleoScriptSwashCaps = Oleo_Script_Swash_Caps({
   weight: "700",
 });
 
-const beVietnamPro = Be_Vietnam_Pro({
-  subsets: ["latin", "vietnamese"],
-  display: "swap",
-  weight: "700",
-});
 interface VietnameseCertificateTemplateProps {
   data: CertificateData;
   className?: string;
@@ -77,7 +68,7 @@ const VietnameseCertificateTemplate = forwardRef<
           <p
             className={cn(
               oleoScriptSwashCaps.className,
-              "text-[#923137] bg-orange-100 leading-relaxed"
+              "text-[#923137] bg-orange-100 px-4"
             )}
             style={{
               fontSize: "4rem",
@@ -101,7 +92,7 @@ const VietnameseCertificateTemplate = forwardRef<
           <div className="mb-4">
             <div
               className={cn(
-                "text-[#923137] text-3xl leading-relaxed space-y-2",
+                "text-[#923137] text-3xl space-y-2",
                 pinyonScript.className
               )}
             >

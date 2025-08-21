@@ -6,10 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Edit3, Download, Eye, Users } from "lucide-react";
-import CertificateTemplate from "./CertificateTemplate";
 import VietnameseCertificateTemplate from "./VietnameseCertificateTemplate";
 import { exportToPDF, exportAllToPDF } from "@/lib/pdf-export";
 
@@ -179,109 +176,53 @@ export default function CertificateEditor({
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg">Edit Certificate</CardTitle>
-                <Badge variant="secondary" className="w-fit">
-                  {selectedCertificate.name}
-                </Badge>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Tabs defaultValue="personal">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="personal">Personal</TabsTrigger>
-                    <TabsTrigger value="details">Details</TabsTrigger>
-                  </TabsList>
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    id="name"
+                    value={selectedCertificate.name}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
+                    placeholder="Enter full name"
+                  />
+                </div>
 
-                  <TabsContent value="personal" className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        value={selectedCertificate.name}
-                        onChange={(e) =>
-                          handleInputChange("name", e.target.value)
-                        }
-                        placeholder="Enter full name"
-                      />
-                    </div>
+                <div className="space-y-2">
+                  <Label htmlFor="dob">Date of Birth</Label>
+                  <Input
+                    id="dob"
+                    value={selectedCertificate.dob}
+                    onChange={(e) => handleInputChange("dob", e.target.value)}
+                    placeholder="DD/MM/YYYY"
+                  />
+                </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="dob">Date of Birth</Label>
-                      <Input
-                        id="dob"
-                        value={selectedCertificate.dob}
-                        onChange={(e) =>
-                          handleInputChange("dob", e.target.value)
-                        }
-                        placeholder="DD/MM/YYYY"
-                      />
-                    </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="time_join">Join Time</Label>
+                    <Input
+                      id="time_join"
+                      value={selectedCertificate.time_join}
+                      onChange={(e) =>
+                        handleInputChange("time_join", e.target.value)
+                      }
+                      placeholder="MM/YYYY"
+                    />
+                  </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="time_join">Join Time</Label>
-                        <Input
-                          id="time_join"
-                          value={selectedCertificate.time_join}
-                          onChange={(e) =>
-                            handleInputChange("time_join", e.target.value)
-                          }
-                          placeholder="MM/YYYY"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="time_leave">Leave Time</Label>
-                        <Input
-                          id="time_leave"
-                          value={selectedCertificate.time_leave}
-                          onChange={(e) =>
-                            handleInputChange("time_leave", e.target.value)
-                          }
-                          placeholder="MM/YYYY"
-                        />
-                      </div>
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="details" className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="issuedDate">Issue Date</Label>
-                      <Input
-                        id="issuedDate"
-                        value={selectedCertificate.issuedDate || ""}
-                        onChange={(e) =>
-                          handleInputChange("issuedDate", e.target.value)
-                        }
-                        placeholder="DD/MM/YYYY"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="issuerName">Issuer Name</Label>
-                      <Input
-                        id="issuerName"
-                        value={selectedCertificate.issuerName || ""}
-                        onChange={(e) =>
-                          handleInputChange("issuerName", e.target.value)
-                        }
-                        placeholder="Organization issuer"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="organizationName">
-                        Organization Name
-                      </Label>
-                      <Input
-                        id="organizationName"
-                        value={selectedCertificate.organizationName || ""}
-                        onChange={(e) =>
-                          handleInputChange("organizationName", e.target.value)
-                        }
-                        placeholder="Organization name"
-                      />
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                  <div className="space-y-2">
+                    <Label htmlFor="time_leave">Leave Time</Label>
+                    <Input
+                      id="time_leave"
+                      value={selectedCertificate.time_leave}
+                      onChange={(e) =>
+                        handleInputChange("time_leave", e.target.value)
+                      }
+                      placeholder="MM/YYYY"
+                    />
+                  </div>
+                </div>
               </CardContent>
             </Card>
           )}

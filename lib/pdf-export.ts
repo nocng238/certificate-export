@@ -28,10 +28,9 @@ export const exportToPDF = async (certificate: CertificateData) => {
     const canvas = await html2canvas(container, {
       scale: 2,
       useCORS: true,
-
       backgroundColor: "#ffffff",
       width: container.getBoundingClientRect().width, // Match container width
-      height: container.getBoundingClientRect().height, // Match container height
+      height: container.getBoundingClientRect().height, // Match container height,
     });
 
     // Remove the temporary container
@@ -45,7 +44,6 @@ export const exportToPDF = async (certificate: CertificateData) => {
     });
 
     const imgData = canvas.toDataURL("image/png");
-    // Use landscape A4 dimensions: 297mm x 210mm
     pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
 
     // Save the PDF
