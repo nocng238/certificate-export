@@ -7,6 +7,10 @@ export interface CertificateData {
   issuedDate?: string;
   issuerName?: string;
   organizationName?: string;
+  // Thank-you letter fields
+  donationAmount?: string;
+  description1?: string;
+  description2?: string;
 }
 
 export interface CsvRow {

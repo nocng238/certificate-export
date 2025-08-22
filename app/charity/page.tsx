@@ -4,10 +4,12 @@ import { useState } from "react";
 import { CertificateData } from "@/types/certificate";
 import CsvUploader from "@/components/CsvUploader";
 import CertificateEditor from "@/components/CertificateEditor";
+import ThankYouLetterEditor from "@/components/ThankYouLetterEditor";
+import ThankYouLetterStandaloneEditor from "@/components/ThankYouLetterStandaloneEditor";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, ArrowLeft } from "lucide-react";
-import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Heart, ArrowLeft, FileText, Mail } from "lucide-react";
 
 enum AppState {
   UPLOAD,
@@ -54,19 +56,9 @@ export default function CharityPage() {
                   Charity Certificates
                 </h1>
               </div>
-
-              {certificates.length > 0 && (
-                <Badge
-                  variant="secondary"
-                  className="bg-rose-100 text-rose-800"
-                >
-                  {certificates.length} certificate
-                  {certificates.length !== 1 ? "s" : ""}
-                </Badge>
-              )}
             </div>
 
-            {appState === AppState.EDIT && (
+            {/* {appState === AppState.EDIT && (
               <Button
                 variant="outline"
                 onClick={resetApp}
@@ -75,36 +67,60 @@ export default function CharityPage() {
                 <ArrowLeft className="w-4 h-4" />
                 <span>New Upload</span>
               </Button>
-            )}
+            )} */}
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* {appState === AppState.UPLOAD ? (
-          <div className="space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-gray-900">
-                Charity Certificate Generator
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Generate certificates for charity event participants and
-                contributors. Upload a CSV file with participant data to
-                automatically generate personalized certificates.
-              </p>
-            </div>
+        <ThankYouLetterStandaloneEditor />
+        {/* <Tabs defaultValue="thankyou" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
+            <TabsTrigger
+              value="thankyou"
+              className="flex items-center space-x-2"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Thank-You Letters</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="certificates"
+              className="flex items-center space-x-2"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Certificates</span>
+            </TabsTrigger>
+          </TabsList>
 
-            <CsvUploader onDataLoaded={handleDataLoaded} />
-          </div>
-        ) : (
-          <CertificateEditor
-            certificates={certificates}
-            onUpdateCertificate={handleUpdateCertificate}
-          />
-        )} */}
+          <TabsContent value="thankyou" className="space-y-6">
+            <ThankYouLetterStandaloneEditor />
+          </TabsContent>
 
-        <ThankYouLetterDonnor />
+          <TabsContent value="certificates" className="space-y-6">
+            {appState === AppState.UPLOAD ? (
+              <div className="space-y-8">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl font-bold text-gray-900">
+                    Charity Certificate Generator
+                  </h2>
+                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Generate certificates for charity event participants and
+                    contributors. Upload a CSV file with participant data to
+                    automatically generate personalized certificates.
+                  </p>
+                </div>
+
+                <CsvUploader onDataLoaded={handleDataLoaded} />
+              </div>
+            ) : (
+              <CertificateEditor
+                certificates={certificates}
+                onUpdateCertificate={handleUpdateCertificate}
+              />
+            )}
+          </TabsContent>
+        </Tabs> */}
       </main>
     </>
   );

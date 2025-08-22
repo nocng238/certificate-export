@@ -5,6 +5,7 @@ import React from "react";
 import { CertificateData } from "@/types/certificate";
 import VietnameseCertificateTemplate from "@/components/VietnameseCertificateTemplate";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
+import { ThankYouData } from "@/components/ThankYouLetterStandaloneEditor";
 
 export const exportToPDF = async (certificate: CertificateData) => {
   try {
@@ -89,23 +90,33 @@ const convertToImage = async (htmlString: string) => {
   return canvas.toDataURL("image/png");
 };
 
-export const exportThankYouLetterToPDF = async () => {
+const slugify = (text: string) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w-]+/g, "") // Remove all non-word characters
+    .replace(/--+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
+};
+export const exportThankYouLetterToPDF = async (data: ThankYouData) => {
   try {
     const pdf = new jsPDF({
-      orientation: "portrait",
+      orientation: "landscape",
       unit: "mm",
       format: "a4",
     });
 
     const letterHTML = renderToString(
-      React.createElement(ThankYouLetterDonnor)
+      React.createElement(ThankYouLetterDonnor, { ...data })
     );
 
     const imgData = await convertToImage(letterHTML);
 
-    pdf.addImage(imgData, "PNG", 0, 0, 210, 297);
+    pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
 
-    const filename = `thank-you-letter-${Date.now()}.pdf`;
+    const filename = `thank-you-letter-${slugify(data.name)}.pdf`;
     pdf.save(filename);
   } catch (error) {
     console.error("Error exporting thank you letter PDF:", error);

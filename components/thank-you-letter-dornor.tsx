@@ -18,7 +18,17 @@ const baloo = Baloo_2({
   weight: ["400", "500", "600", "700"],
 });
 
-const ThankYouLetterDonnor = () => {
+interface ThankYouLetterDonnorProps {
+  name?: string;
+  description1?: string;
+  description2?: string;
+}
+
+const ThankYouLetterDonnor = ({
+  name = "Easy Trip",
+  description1 = "Đã tham gia đóng góp tài trợ 4.000.000 VND xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.",
+  description2 = "Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.",
+}: ThankYouLetterDonnorProps) => {
   return (
     <div
       className={`relative w-[1100px]  mx-auto overflow-hidden bg-white certificate-template 
@@ -73,10 +83,11 @@ const ThankYouLetterDonnor = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center text-center px-4">
+          {/* name */}
           <p
             className={cn("px-4 text-6xl font-bold mb-8", montserrat.className)}
           >
-            Easy Trip
+            {name}
           </p>
 
           <div
@@ -85,16 +96,10 @@ const ThankYouLetterDonnor = () => {
               montserrat.className
             )}
           >
-            <p>
-              Đã tham gia đóng góp tài trợ 4.000.000 VND xây dựng Điểm trường
-              Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà,
-              tỉnh Điện Biên vào ngày 04/08/2025.{" "}
-            </p>
-            <p>
-              Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới
-              lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó
-              khăn.
-            </p>
+            {/* description 1 */}
+            <p>{description1}</p>
+            {/* description 2 */}
+            <p>{description2}</p>
           </div>
         </div>
 
