@@ -7,44 +7,13 @@ import VietnameseCertificateTemplate from "@/components/VietnameseCertificateTem
 
 export const exportToPDF = async (certificate: CertificateData) => {
   try {
-    // Create a temporary container for the certificate
-    const container = document.createElement("div");
-    container.style.position = "fixed";
-    container.style.top = "-10000px";
-    container.style.left = "-10000px";
-    container.style.backgroundColor = "white";
-    container.style.fontFamily = "Times New Roman, serif";
-
-    // Render React component to HTML string
-    const certificateHTML = renderToString(
-      React.createElement(VietnameseCertificateTemplate, { data: certificate })
-    );
-
-    container.innerHTML = certificateHTML;
-
-    document.body.appendChild(container);
-
-    // Capture the certificate as canvas
-    const canvas = await html2canvas(container, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-      width: container.getBoundingClientRect().width, // Match container width
-      height: container.getBoundingClientRect().height, // Match container height,
-    });
-
-    // Remove the temporary container
-    document.body.removeChild(container);
-
-    // Create PDF in landscape format to match the Vietnamese certificate aspect ratio
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: "a4",
     });
-
-    const imgData = canvas.toDataURL("image/png");
-    pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
+    const imageData = await convertToImage(certificate);
+    pdf.addImage(imageData, "PNG", 0, 0, 297, 210);
 
     // Save the PDF
     const filename = `certificate-${certificate.name
@@ -68,38 +37,7 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
     for (let i = 0; i < certificates.length; i++) {
       const certificate = certificates[i];
 
-      // Create a temporary container for each certificate
-      const container = document.createElement("div");
-      container.style.position = "fixed";
-      container.style.top = "-10000px";
-      container.style.left = "-10000px";
-      container.style.width = "1400px";
-      container.style.height = "990px";
-      container.style.backgroundColor = "white";
-      container.style.fontFamily = "Times New Roman, serif";
-
-      // Render React component to HTML string
-      const certificateHTML = renderToString(
-        React.createElement(VietnameseCertificateTemplate, {
-          data: certificate,
-        })
-      );
-
-      container.innerHTML = certificateHTML;
-
-      document.body.appendChild(container);
-
-      const canvas = await html2canvas(container, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        width: container.getBoundingClientRect().width, // Match container width
-        height: container.getBoundingClientRect().height,
-      });
-
-      document.body.removeChild(container);
-
-      const imgData = canvas.toDataURL("image/png");
+      const imgData = await convertToImage(certificate);
 
       if (i > 0) {
         pdf.addPage();
@@ -114,4 +52,33 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
     console.error("Error exporting all PDFs:", error);
     throw new Error("Failed to export all PDFs. Please try again.");
   }
+};
+
+const convertToImage = async (certificate: CertificateData) => {
+  const container = document.createElement("div");
+  container.style.position = "fixed";
+  container.style.top = "-10000px";
+  container.style.left = "-10000px";
+  container.style.backgroundColor = "white";
+  container.style.fontFamily = "Times New Roman, serif";
+
+  const certificateHTML = renderToString(
+    React.createElement(VietnameseCertificateTemplate, { data: certificate })
+  );
+
+  container.innerHTML = certificateHTML;
+
+  document.body.appendChild(container);
+
+  const canvas = await html2canvas(container, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: "#ffffff",
+    width: container.getBoundingClientRect().width,
+    height: container.getBoundingClientRect().height,
+  });
+
+  document.body.removeChild(container);
+
+  return canvas.toDataURL("image/png");
 };
