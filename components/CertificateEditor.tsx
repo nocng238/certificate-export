@@ -26,9 +26,6 @@ export default function CertificateEditor({
     {}
   );
   const [isExportingAll, setIsExportingAll] = useState(false);
-  const [templateType, setTemplateType] = useState<"standard" | "vietnamese">(
-    "vietnamese"
-  );
 
   const selectedCertificate = certificates.find(
     (cert) => cert.id === selectedId
@@ -76,7 +73,6 @@ export default function CertificateEditor({
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6">
-      {/* Header with bulk actions */}
       <Card>
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
@@ -107,7 +103,6 @@ export default function CertificateEditor({
       </Card>
 
       <div className="grid grid-cols-1 gap-6">
-        {/* Certificate List & Editor */}
         <div className="lg:col-span-1 space-y-4">
           <Card>
             <CardHeader className="pb-3">
@@ -153,7 +148,6 @@ export default function CertificateEditor({
             </CardContent>
           </Card>
 
-          {/* Edit Form */}
           {selectedCertificate && (
             <Card>
               <CardHeader className="pb-3">
