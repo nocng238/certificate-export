@@ -6,21 +6,24 @@ import LeaderSign from "@/assets/sign.png";
 import Leader from "@/assets/leader.png";
 import Banner from "@/assets/banner.png";
 import LogoBottom from "@/assets/img-bottom.svg";
-import { Pinyon_Script, Oleo_Script_Swash_Caps } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
 import { cn } from "@/lib/utils";
+import localFont from "next/font/local";
 
-const pinyonScript = Pinyon_Script({
-  subsets: ["latin"],
+const iCielNabila = localFont({
+  src: "../assets/font/iCielNabila.ttf",
+});
+const vnfCaviar = localFont({
+  src: "../assets/font/vnf-caviar.ttf",
   display: "swap",
   weight: "400",
 });
 
-const oleoScriptSwashCaps = Oleo_Script_Swash_Caps({
-  subsets: ["latin", "latin-ext"],
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
   display: "swap",
-  weight: "700",
+  weight: ["400", "500", "600", "700"],
 });
-
 interface VolunteerCertificateTemplateProps {
   data: CertificateData;
   className?: string;
@@ -46,7 +49,7 @@ const VolunteerCertificateTemplate = forwardRef<
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="h-full relative overflow-auto flex flex-col px-16 py-4">
+      <div className="h-full relative overflow-auto flex flex-col px-16 pt-0 py-8">
         <div className="flex-shrink-0">
           <div className="w-full mx-auto">
             <Image
@@ -59,7 +62,12 @@ const VolunteerCertificateTemplate = forwardRef<
           </div>
 
           <div className="text-center mb-2">
-            <h2 className="text-red-700 font-medium text-sm sm:text-base md:text-lg lg:text-xl">
+            <h2
+              className={cn(
+                "text-[#9b4e42] font-medium text-sm sm:text-base md:text-lg lg:text-xl",
+                vnfCaviar.className
+              )}
+            >
               DỰ ÁN NUÔI EM XÁC NHẬN:
             </h2>
           </div>
@@ -68,7 +76,7 @@ const VolunteerCertificateTemplate = forwardRef<
         <div className="flex flex-col justify-center items-center text-center px-4 mb-4">
           <p
             className={cn(
-              oleoScriptSwashCaps.className,
+              iCielNabila.className,
               "text-[#923137] bg-orange-100 px-4"
             )}
             style={{
@@ -80,11 +88,7 @@ const VolunteerCertificateTemplate = forwardRef<
 
           <div className="mb-2">
             <p
-              className="text-black text-xl mt-2"
-              style={{
-                fontFamily:
-                  "Source Sans Pro, -apple-system, Roboto, Helvetica, sans-serif",
-              }}
+              className={cn("text-black text-xl my-2", sourceCodePro.className)}
             >
               Sinh ngày {data.dob}
             </p>
@@ -94,7 +98,7 @@ const VolunteerCertificateTemplate = forwardRef<
             <div
               className={cn(
                 "text-[#923137] text-3xl space-y-2",
-                pinyonScript.className
+                iCielNabila.className
               )}
             >
               <p>Đã tham gia là tình nguyện viên hỗ trợ Dự án Nuôi Em</p>
@@ -105,25 +109,19 @@ const VolunteerCertificateTemplate = forwardRef<
           </div>
         </div>
 
-        <div className="flex justify-center items-center p-4 relative">
+        <div className="flex flex-grow justify-center items-center p-4 relative">
           <Image
             alt="logo-bottom"
             src={LogoBottom.src}
             width={200}
             height={200}
           />
-          <div className="flex flex-col items-center absolute bottom-4 left-3/4 transform -translate-x-1/2">
-            <div className="text-center">
+          <div className="flex flex-col items-center absolute bottom-9 left-3/4 transform -translate-x-1/2">
+            <div className={cn("text-center", vnfCaviar.className)}>
               <p className="text-black text-xs sm:text-sm md:text-base mb-1">
                 Hà Nội, ngày {data.issuedDate || "10/02/2025"}
               </p>
-              <p
-                className="text-black text-xs sm:text-sm md:text-base"
-                style={{
-                  fontFamily:
-                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                }}
-              >
+              <p className="text-black text-xs sm:text-sm md:text-base">
                 Nhóm tình nguyện Niềm Tin
               </p>
             </div>
