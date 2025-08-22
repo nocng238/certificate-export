@@ -6,9 +6,9 @@ import LeaderSign from "@/assets/sign.png";
 import Leader from "@/assets/leader.png";
 import Banner from "@/assets/banner.png";
 import LogoBottom from "@/assets/img-bottom.svg";
-import { Source_Code_Pro } from "next/font/google";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { Open_Sans } from "next/font/google";
 
 const iCielNabila = localFont({
   src: "../assets/font/iCielNabila.ttf",
@@ -18,21 +18,22 @@ const vnfCaviar = localFont({
   display: "swap",
   weight: "400",
 });
-
-const sourceCodePro = Source_Code_Pro({
-  subsets: ["latin"],
+const openSans = Open_Sans({
+  subsets: ["latin", "vietnamese"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
+
 interface VolunteerCertificateTemplateProps {
   data: CertificateData;
+  index: number;
   className?: string;
 }
 
 const VolunteerCertificateTemplate = forwardRef<
   HTMLDivElement,
   VolunteerCertificateTemplateProps
->(({ data }, ref) => {
+>(({ data, index }, ref) => {
   return (
     <div
       ref={ref}
@@ -68,7 +69,7 @@ const VolunteerCertificateTemplate = forwardRef<
                 vnfCaviar.className
               )}
             >
-              DỰ ÁN NUÔI EM XÁC NHẬN:
+              HỆ SINH THÁI NUÔI EM XÁC NHẬN:
             </h2>
           </div>
         </div>
@@ -87,9 +88,7 @@ const VolunteerCertificateTemplate = forwardRef<
           </p>
 
           <div className="mb-2">
-            <p
-              className={cn("text-black text-xl my-2", sourceCodePro.className)}
-            >
+            <p className={cn("text-black text-xl my-2", openSans.className)}>
               Sinh ngày {data.dob}
             </p>
           </div>
@@ -135,6 +134,15 @@ const VolunteerCertificateTemplate = forwardRef<
             />
           </div>
         </div>
+
+        <span
+          className={cn(
+            "absolute text-[#923137] bottom-16 right-16 text-xl",
+            iCielNabila.className
+          )}
+        >
+          {index || 100}
+        </span>
       </div>
     </div>
   );

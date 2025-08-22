@@ -16,6 +16,7 @@ enum AppState {
 export default function VolunteerPage() {
   const [appState, setAppState] = useState<AppState>(AppState.UPLOAD);
   const [certificates, setCertificates] = useState<CertificateData[]>([]);
+  const [index, setIndex] = useState<number>(1);
 
   const handleDataLoaded = (data: CertificateData[]) => {
     setCertificates(data);

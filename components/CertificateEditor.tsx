@@ -10,7 +10,6 @@ import { Edit3, Download, Eye, Users } from "lucide-react";
 import VietnameseCertificateTemplate from "./volunteer-cert";
 import {
   exportToPDF,
-  exportAllToPDF,
   exportEachCertificateAsSeparatePDF,
 } from "@/lib/pdf-export";
 
@@ -34,6 +33,9 @@ export default function CertificateEditor({
   const selectedCertificate = certificates.find(
     (cert) => cert.id === selectedId
   );
+
+  const certIndex =
+    certificates.findIndex((cert) => cert.id === selectedId) + 1;
 
   const handleInputChange = (field: keyof CertificateData, value: string) => {
     if (selectedCertificate) {
@@ -241,6 +243,7 @@ export default function CertificateEditor({
                     <VietnameseCertificateTemplate
                       data={selectedCertificate}
                       className="w-full h-auto"
+                      index={certIndex}
                     />
                   </div>
                 </div>
