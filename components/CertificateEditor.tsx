@@ -8,7 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Edit3, Download, Eye, Users } from "lucide-react";
 import VietnameseCertificateTemplate from "./volunteer-cert";
-import { exportToPDF, exportAllToPDF } from "@/lib/pdf-export";
+import {
+  exportToPDF,
+  exportAllToPDF,
+  exportEachCertificateAsSeparatePDF,
+} from "@/lib/pdf-export";
 
 interface CertificateEditorProps {
   certificates: CertificateData[];
@@ -49,7 +53,7 @@ export default function CertificateEditor({
   const handleExportAll = async () => {
     setIsExportingAll(true);
     try {
-      await exportAllToPDF(certificates);
+      await exportEachCertificateAsSeparatePDF(certificates);
     } finally {
       setIsExportingAll(false);
     }

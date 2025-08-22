@@ -2,6 +2,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import React from "react";
+import JSZip from "jszip";
 import { CertificateData } from "@/types/certificate";
 import VolunteerCertificate from "@/components/volunteer-cert";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
@@ -65,6 +66,60 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
   }
 };
 
+export const exportEachCertificateAsSeparatePDF = async (
+  certificates: CertificateData[]
+) => {
+  try {
+    const zip = new JSZip();
+    const pdfPromises = certificates.map(async (certificate, index) => {
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const certificateHTML = renderToString(
+        React.createElement(VolunteerCertificate, {
+          data: certificate,
+        })
+      );
+
+      const imgData = await convertToImage(certificateHTML);
+      pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
+
+      const filename = `certificate-${slugify(certificate.name)}-${
+        index + 1
+      }.pdf`;
+      const pdfBlob = pdf.output("blob");
+      zip.file(filename, pdfBlob);
+    });
+
+    // Wait for all PDFs to be generated and added to ZIP
+    await Promise.all(pdfPromises);
+
+    // Generate ZIP file and download
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const zipFilename = `certificates-${Date.now()}.zip`;
+
+    // Create download link
+    const url = URL.createObjectURL(zipBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = zipFilename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log(
+      `Successfully exported ${certificates.length} certificates in ZIP file: ${zipFilename}`
+    );
+  } catch (error) {
+    console.error("Error exporting certificates as ZIP:", error);
+    throw new Error("Failed to export certificates as ZIP. Please try again.");
+  }
+};
+
 const convertToImage = async (htmlString: string) => {
   const container = document.createElement("div");
   container.style.position = "fixed";
@@ -92,13 +147,12 @@ const convertToImage = async (htmlString: string) => {
 
 const slugify = (text: string) => {
   return text
-    .toString()
     .toLowerCase()
-    .replace(/\s+/g, "-") // Replace spaces with -
-    .replace(/[^\w-]+/g, "") // Remove all non-word characters
-    .replace(/--+/g, "-") // Replace multiple - with single -
-    .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, ""); // Trim - from end of text
+    .normalize("NFD") // Decompose accented characters
+    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/[\s-]+/g, "-") // Replace spaces and hyphens with single hyphen
+    .replace(/^-+|-+$/g, ""); // Trim hyphens from both ends
 };
 export const exportThankYouLetterToPDF = async (data: ThankYouData) => {
   try {
