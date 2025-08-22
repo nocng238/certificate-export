@@ -64,7 +64,7 @@ export default function ThankYouLetterStandaloneEditor() {
             className="flex items-center space-x-2"
           >
             <Eye className="w-4 h-4" />
-            <span>Preview</span>
+            <span>Full Preview</span>
           </Button>
           <Button
             onClick={handleExportPDF}
