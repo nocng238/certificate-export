@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import { renderToString } from "react-dom/server";
 import React from "react";
 import { CertificateData } from "@/types/certificate";
-import VietnameseCertificateTemplate from "@/components/VietnameseCertificateTemplate";
+import VolunteerCertificate from "@/components/volunteer-cert";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
 import { ThankYouData } from "@/components/ThankYouLetterStandaloneEditor";
 
@@ -15,7 +15,7 @@ export const exportToPDF = async (certificate: CertificateData) => {
       format: "a4",
     });
     const certificateHTML = renderToString(
-      React.createElement(VietnameseCertificateTemplate, { data: certificate })
+      React.createElement(VolunteerCertificate, { data: certificate })
     );
 
     const imageData = await convertToImage(certificateHTML);
@@ -43,7 +43,7 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
     for (let i = 0; i < certificates.length; i++) {
       const certificate = certificates[i];
       const certificateHTML = renderToString(
-        React.createElement(VietnameseCertificateTemplate, {
+        React.createElement(VolunteerCertificate, {
           data: certificate,
         })
       );

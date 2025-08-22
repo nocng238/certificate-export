@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Edit3, Download, Eye, Users } from "lucide-react";
-import VietnameseCertificateTemplate from "./VietnameseCertificateTemplate";
+import VietnameseCertificateTemplate from "./volunteer-cert";
 import { exportToPDF, exportAllToPDF } from "@/lib/pdf-export";
 
 interface CertificateEditorProps {

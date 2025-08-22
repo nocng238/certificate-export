@@ -1,6 +1,6 @@
 import { CertificateData } from "@/types/certificate";
 import { forwardRef } from "react";
-import BackgroundImage from "@/assets/background.svg"; // Adjust the path as necessary
+import BackgroundImage from "@/assets/background.png"; // Adjust the path as necessary
 import Image from "next/image";
 import LeaderSign from "@/assets/sign.png";
 import Leader from "@/assets/leader.png";
@@ -21,20 +21,21 @@ const oleoScriptSwashCaps = Oleo_Script_Swash_Caps({
   weight: "700",
 });
 
-interface VietnameseCertificateTemplateProps {
+interface VolunteerCertificateTemplateProps {
   data: CertificateData;
   className?: string;
 }
 
-const VietnameseCertificateTemplate = forwardRef<
+const VolunteerCertificateTemplate = forwardRef<
   HTMLDivElement,
-  VietnameseCertificateTemplateProps
->(({ data, className = "" }, ref) => {
+  VolunteerCertificateTemplateProps
+>(({ data }, ref) => {
   return (
     <div
       ref={ref}
-      className={`relative w-[1100px] h-[750px] mx-auto overflow-hidden bg-white certificate-template ${className} 
-        shadow-lg border border-gray-200`}
+      className={cn(
+        "relative w-[1100px] h-[750px] mx-auto overflow-hidden bg-white certificate-template shadow-lg border border-gray-200"
+      )}
       style={{
         aspectRatio: "5097/3600",
         minHeight: "clamp(400px, 60vw, 800px)",
@@ -45,14 +46,14 @@ const VietnameseCertificateTemplate = forwardRef<
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="h-full relative overlow-auto flex flex-col justify-between px-16 py-[60px]">
+      <div className="h-full relative overflow-auto flex flex-col px-16 py-4">
         <div className="flex-shrink-0">
-          <div className="w-full max-w-2xl mx-auto mb-6">
+          <div className="w-full mx-auto">
             <Image
               src={Banner.src}
               alt="Banner"
-              className="w-full h-40 object-cover"
-              width={100}
+              className="w-full object-cover"
+              width={200}
               height={100}
             />
           </div>
@@ -64,7 +65,7 @@ const VietnameseCertificateTemplate = forwardRef<
           </div>
         </div>
 
-        <div className="flex-grow flex flex-col justify-center items-center text-center px-4">
+        <div className="flex flex-col justify-center items-center text-center px-4 mb-4">
           <p
             className={cn(
               oleoScriptSwashCaps.className,
@@ -141,6 +142,6 @@ const VietnameseCertificateTemplate = forwardRef<
   );
 });
 
-VietnameseCertificateTemplate.displayName = "VietnameseCertificateTemplate";
+VolunteerCertificateTemplate.displayName = "VolunteerCertificateTemplate";
 
-export default VietnameseCertificateTemplate;
+export default VolunteerCertificateTemplate;

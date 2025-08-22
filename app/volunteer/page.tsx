@@ -80,7 +80,7 @@ export default function VolunteerPage() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {appState === AppState.UPLOAD ? (
           <div className="space-y-8">
             {/* Welcome Section */}
