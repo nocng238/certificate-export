@@ -6,7 +6,7 @@ import LeaderSign from "@/assets/sign.png";
 import Leader from "@/assets/leader.png";
 import Banner from "@/assets/banner.png";
 import LogoBottom from "@/assets/img-bottom.svg";
-import { cn } from "@/lib/utils";
+import { cn, converDateToVietnameseFormat } from "@/lib/utils";
 import localFont from "next/font/local";
 import { Open_Sans } from "next/font/google";
 
@@ -89,7 +89,7 @@ const VolunteerCertificateTemplate = forwardRef<
 
           <div className="mb-2">
             <p className={cn("text-black text-xl my-2", openSans.className)}>
-              Sinh ngày {data.dob}
+              Sinh {converDateToVietnameseFormat(data.dob)}
             </p>
           </div>
 
