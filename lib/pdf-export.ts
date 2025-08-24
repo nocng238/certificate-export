@@ -8,7 +8,10 @@ import VolunteerCertificate from "@/components/volunteer-cert";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
 import { ThankYouData } from "@/components/ThankYouLetterStandaloneEditor";
 
-export const exportToPDF = async (certificate: CertificateData) => {
+export const exportToPDF = async (
+  certificate: CertificateData,
+  index: number
+) => {
   try {
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -16,7 +19,7 @@ export const exportToPDF = async (certificate: CertificateData) => {
       format: "a4",
     });
     const certificateHTML = renderToString(
-      React.createElement(VolunteerCertificate, { data: certificate })
+      React.createElement(VolunteerCertificate, { data: certificate, index })
     );
 
     const imageData = await convertToImage(certificateHTML);
@@ -46,6 +49,7 @@ export const exportAllToPDF = async (certificates: CertificateData[]) => {
       const certificateHTML = renderToString(
         React.createElement(VolunteerCertificate, {
           data: certificate,
+          index: i + 1,
         })
       );
 
@@ -81,6 +85,7 @@ export const exportEachCertificateAsSeparatePDF = async (
       const certificateHTML = renderToString(
         React.createElement(VolunteerCertificate, {
           data: certificate,
+          index: index + 1,
         })
       );
 

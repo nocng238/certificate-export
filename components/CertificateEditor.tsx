@@ -45,8 +45,11 @@ export default function CertificateEditor({
 
   const handleExportSingle = async (certificate: CertificateData) => {
     setIsExporting((prev) => ({ ...prev, [certificate.id]: true }));
+    const certIndex =
+      certificates.findIndex((cert) => cert.id === selectedId) + 1;
+
     try {
-      await exportToPDF(certificate);
+      await exportToPDF(certificate, certIndex);
     } finally {
       setIsExporting((prev) => ({ ...prev, [certificate.id]: false }));
     }

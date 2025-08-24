@@ -39,7 +39,6 @@ export const parseCSV = (file: File): Promise<ParseResult> => {
             return;
           }
 
-          // Create certificate data with default values
           data.push({
             id: `cert-${Date.now()}-${index}`,
             name: csvRow.name.trim(),
