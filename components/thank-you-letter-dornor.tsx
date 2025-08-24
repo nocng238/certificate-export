@@ -105,7 +105,7 @@ const ThankYouLetterDonnor = ({
 
         <div
           className={cn(
-            "flex-grow flex justify-end items-center font-bold mr-2",
+            "flex-grow flex justify-end items-end mb-5 font-bold mr-2",
             montserrat.className
           )}
         >
