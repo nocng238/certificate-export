@@ -132,3 +132,16 @@
 .rich-text-content strong {
   font-weight: 600;
 }
+
+.reset-quill-editor-style {
+  min-height: unset !important;
+  box-sizing: border-box !important;
+  line-height: 1.6 !important;
+  outline: none;
+  overflow-y: unset !important;
+  padding: unset !important;
+  tab-size: unset !important;
+  -moz-tab-size: unset !important;
+  text-align: center !important;
+  white-space: pre-wrap !important;
+}

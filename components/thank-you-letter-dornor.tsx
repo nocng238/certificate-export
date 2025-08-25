@@ -95,14 +95,25 @@ const ThankYouLetterDonnor = forwardRef<
 
           <div className="flex flex-col justify-center items-center text-center px-4">
             {/* name */}
-            <p
-              className={cn(
-                "px-4 text-6xl font-bold mb-8",
-                montserrat.className
-              )}
+            <ResizableBox
+              width={800}
+              height={80}
+              minConstraints={[300, 60]}
+              maxConstraints={[1000, 200]}
+              resizeHandles={["se"]}
+              className="resizable-text-box mb-8"
             >
-              {name}
-            </p>
+              <div
+                className={cn(
+                  "h-full w-full rounded-lg overflow-auto resize-none resizable-content flex items-center justify-center",
+                  montserrat.className
+                )}
+              >
+                <p className="text-6xl font-bold text-center whitespace-pre-wrap">
+                  {name}
+                </p>
+              </div>
+            </ResizableBox>
 
             <ResizableBox
               width={800}
@@ -120,14 +131,14 @@ const ThankYouLetterDonnor = forwardRef<
               >
                 <div
                   dangerouslySetInnerHTML={{ __html: description1 }}
-                  className="rich-text-content h-full"
+                  className="rich-text-content ql-editor reset-quill-editor-style h-full"
                 />
               </div>
             </ResizableBox>
 
             <ResizableBox
               width={800}
-              height={120}
+              height={80}
               minConstraints={[300, 60]}
               maxConstraints={[1000, 300]}
               resizeHandles={["se"]}
@@ -141,7 +152,7 @@ const ThankYouLetterDonnor = forwardRef<
               >
                 <div
                   dangerouslySetInnerHTML={{ __html: description2 }}
-                  className="rich-text-content h-full"
+                  className="rich-text-content ql-editor reset-quill-editor-style h-full"
                 />
               </div>
             </ResizableBox>

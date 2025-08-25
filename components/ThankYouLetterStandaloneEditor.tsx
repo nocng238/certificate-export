@@ -55,8 +55,6 @@ export default function ThankYouLetterStandaloneEditor() {
       [{ size: ["small", false, "large", "huge"] }], // Font size
       ["bold", "italic", "underline"], // Bold, italic, underline
       [{ color: [] }, { background: [] }], // Text color and background color
-      [{ align: [] }], // Text alignment
-      ["clean"], // Remove formatting
     ],
   };
 
