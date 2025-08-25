@@ -19,7 +19,8 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export interface ThankYouData {
   name: string;
-  description: string;
+  description1: string;
+  description2: string;
 }
 
 export default function ThankYouLetterStandaloneEditor() {
@@ -27,7 +28,8 @@ export default function ThankYouLetterStandaloneEditor() {
   const thankyouLetterRef = useRef<HTMLDivElement>(null);
   const [thankYouData, setThankYouData] = useState<ThankYouData>({
     name: "Easy Trip",
-    description: `<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p><p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>`,
+    description1: `<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p>`,
+    description2: `<p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>`,
   });
 
   const handleInputChange = (field: keyof ThankYouData, value: string) => {
@@ -64,7 +66,7 @@ export default function ThankYouLetterStandaloneEditor() {
     <div className="space-y-6">
       <style jsx global>{`
         .ql-editor {
-          min-height: 200px;
+          min-height: 150px;
           font-family: inherit;
         }
         .ql-toolbar {
@@ -148,20 +150,39 @@ export default function ThankYouLetterStandaloneEditor() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description" className="text-sm font-medium">
-                  Description
+                <Label htmlFor="description1" className="text-sm font-medium">
+                  Description 1
                 </Label>
                 <div className="border rounded-md">
                   <ReactQuill
                     theme="snow"
-                    value={thankYouData.description}
+                    value={thankYouData.description1}
                     onChange={(value) =>
-                      handleInputChange("description", value)
+                      handleInputChange("description1", value)
                     }
                     modules={quillModules}
                     formats={quillFormats}
-                    placeholder="Enter the thank you message..."
-                    style={{ minHeight: "200px" }}
+                    placeholder="Enter the first part of the thank you message..."
+                    style={{ minHeight: "150px" }}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description2" className="text-sm font-medium">
+                  Description 2
+                </Label>
+                <div className="border rounded-md">
+                  <ReactQuill
+                    theme="snow"
+                    value={thankYouData.description2}
+                    onChange={(value) =>
+                      handleInputChange("description2", value)
+                    }
+                    modules={quillModules}
+                    formats={quillFormats}
+                    placeholder="Enter the second part of the thank you message..."
+                    style={{ minHeight: "150px" }}
                   />
                 </div>
               </div>
@@ -182,7 +203,8 @@ export default function ThankYouLetterStandaloneEditor() {
                 <ThankYouLetterDonnor
                   ref={thankyouLetterRef}
                   name={thankYouData.name}
-                  description={thankYouData.description}
+                  description1={thankYouData.description1}
+                  description2={thankYouData.description2}
                 />
               </div>
             </CardContent>

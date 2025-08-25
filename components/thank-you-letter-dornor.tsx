@@ -23,7 +23,8 @@ const baloo = Baloo_2({
 
 interface ThankYouLetterDonnorProps {
   name?: string;
-  description?: string;
+  description1?: string;
+  description2?: string;
 }
 
 const ThankYouLetterDonnor = forwardRef<
@@ -33,7 +34,8 @@ const ThankYouLetterDonnor = forwardRef<
   (
     {
       name = "Easy Trip",
-      description = "<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p><p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>",
+      description1 = "<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p>",
+      description2 = "<p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>",
     },
     ref
   ) => {
@@ -104,20 +106,41 @@ const ThankYouLetterDonnor = forwardRef<
 
             <ResizableBox
               width={800}
-              height={200}
-              minConstraints={[300, 80]}
-              maxConstraints={[1000, 400]}
+              height={120}
+              minConstraints={[300, 60]}
+              maxConstraints={[1000, 300]}
               resizeHandles={["se"]}
               className="mb-4 resizable-text-box"
             >
               <div
                 className={cn(
-                  "space-y-2 h-full w-full p-4 text-xl rounded-lg overflow-auto resize-none resizable-content",
+                  "space-y-2 h-full w-full text-xl rounded-lg overflow-auto resize-none resizable-content",
                   montserrat.className
                 )}
               >
                 <div
-                  dangerouslySetInnerHTML={{ __html: description }}
+                  dangerouslySetInnerHTML={{ __html: description1 }}
+                  className="rich-text-content h-full"
+                />
+              </div>
+            </ResizableBox>
+
+            <ResizableBox
+              width={800}
+              height={120}
+              minConstraints={[300, 60]}
+              maxConstraints={[1000, 300]}
+              resizeHandles={["se"]}
+              className="resizable-text-box"
+            >
+              <div
+                className={cn(
+                  "space-y-2 h-full w-full text-xl rounded-lg overflow-auto resize-none resizable-content",
+                  montserrat.className
+                )}
+              >
+                <div
+                  dangerouslySetInnerHTML={{ __html: description2 }}
                   className="rich-text-content h-full"
                 />
               </div>
