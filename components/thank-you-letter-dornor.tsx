@@ -20,14 +20,12 @@ const baloo = Baloo_2({
 
 interface ThankYouLetterDonnorProps {
   name?: string;
-  description1?: string;
-  description2?: string;
+  description?: string;
 }
 
 const ThankYouLetterDonnor = ({
   name = "Easy Trip",
-  description1 = "Đã tham gia đóng góp tài trợ 4.000.000 VND xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.",
-  description2 = "Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.",
+  description = "<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p><p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>",
 }: ThankYouLetterDonnorProps) => {
   return (
     <div
@@ -96,10 +94,10 @@ const ThankYouLetterDonnor = ({
               montserrat.className
             )}
           >
-            {/* description 1 */}
-            <p>{description1}</p>
-            {/* description 2 */}
-            <p>{description2}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: description }}
+              className="rich-text-content"
+            />
           </div>
         </div>
 

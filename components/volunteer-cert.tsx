@@ -38,7 +38,7 @@ const VolunteerCertificateTemplate = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "relative w-[1100px] h-[750px] mx-auto overflow-hidden bg-white certificate-template shadow-lg border border-gray-200"
+        "relative w-[1100px] min-h-[750px] mx-auto overflow-hidden bg-white certificate-template shadow-lg border border-gray-200"
       )}
       style={{
         aspectRatio: "5097/3600",

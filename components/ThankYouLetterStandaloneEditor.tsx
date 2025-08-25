@@ -1,29 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
 import { Download, Edit3, Eye } from "lucide-react";
 import { exportThankYouLetterToPDF } from "@/lib/pdf-export";
+import "react-quill/dist/quill.snow.css";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export interface ThankYouData {
   name: string;
-  description1: string;
-  description2: string;
+  description: string;
 }
 
 export default function ThankYouLetterStandaloneEditor() {
   const [isEditing, setIsEditing] = useState(true);
   const [thankYouData, setThankYouData] = useState<ThankYouData>({
     name: "Easy Trip",
-    description1:
-      "Đã tham gia đóng góp tài trợ 4.000.000 VND xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.",
-    description2:
-      "Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.",
+    description: `<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p><p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>`,
   });
 
   const handleInputChange = (field: keyof ThankYouData, value: string) => {
@@ -37,8 +37,45 @@ export default function ThankYouLetterStandaloneEditor() {
     exportThankYouLetterToPDF(thankYouData);
   };
 
+  // Quill toolbar configuration
+  const quillModules = {
+    toolbar: [
+      [{ size: ["small", false, "large", "huge"] }], // Font size
+      ["bold", "italic", "underline"], // Bold, italic, underline
+      [{ color: [] }, { background: [] }], // Text color and background color
+      [{ align: [] }], // Text alignment
+      ["clean"], // Remove formatting
+    ],
+  };
+
+  const quillFormats = ["size", "bold", "italic", "underline", "color"];
+
   return (
     <div className="space-y-6">
+      <style jsx global>{`
+        .ql-editor {
+          min-height: 200px;
+          font-family: inherit;
+        }
+        .ql-toolbar {
+          border-top: 1px solid #ccc;
+          border-left: 1px solid #ccc;
+          border-right: 1px solid #ccc;
+          border-radius: 0.375rem 0.375rem 0 0;
+        }
+        .ql-container {
+          border-bottom: 1px solid #ccc;
+          border-left: 1px solid #ccc;
+          border-right: 1px solid #ccc;
+          border-radius: 0 0 0.375rem 0.375rem;
+        }
+        .rich-text-content p {
+          margin-bottom: 1rem;
+        }
+        .rich-text-content p:last-child {
+          margin-bottom: 0;
+        }
+      `}</style>
       {/* Header Controls */}
       <div className="flex justify-between items-center">
         <div>
@@ -101,35 +138,22 @@ export default function ThankYouLetterStandaloneEditor() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description1" className="text-sm font-medium">
-                  Description 1
+                <Label htmlFor="description" className="text-sm font-medium">
+                  Description
                 </Label>
-                <Textarea
-                  id="description1"
-                  value={thankYouData.description1}
-                  onChange={(e) =>
-                    handleInputChange("description1", e.target.value)
-                  }
-                  placeholder="Enter first description"
-                  rows={4}
-                  className="resize-none"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description2" className="text-sm font-medium">
-                  Description 2
-                </Label>
-                <Textarea
-                  id="description2"
-                  value={thankYouData.description2}
-                  onChange={(e) =>
-                    handleInputChange("description2", e.target.value)
-                  }
-                  placeholder="Enter second description"
-                  rows={4}
-                  className="resize-none"
-                />
+                <div className="border rounded-md">
+                  <ReactQuill
+                    theme="snow"
+                    value={thankYouData.description}
+                    onChange={(value) =>
+                      handleInputChange("description", value)
+                    }
+                    modules={quillModules}
+                    formats={quillFormats}
+                    placeholder="Enter the thank you message..."
+                    style={{ minHeight: "200px" }}
+                  />
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -147,8 +171,7 @@ export default function ThankYouLetterStandaloneEditor() {
               <div className="overflow-auto">
                 <ThankYouLetterDonnor
                   name={thankYouData.name}
-                  description1={thankYouData.description1}
-                  description2={thankYouData.description2}
+                  description={thankYouData.description}
                 />
               </div>
             </CardContent>
