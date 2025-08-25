@@ -182,3 +182,41 @@ export const exportThankYouLetterToPDF = async (data: ThankYouData) => {
     throw new Error("Failed to export thank you letter PDF. Please try again.");
   }
 };
+
+export const exportThankYouLetterToPDFFromAnElement = async (
+  name: string,
+  element: HTMLElement
+) => {
+  try {
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: "a4",
+    });
+    const imgData = await converHTMLElementToImage(element);
+    pdf.addImage(imgData, "PNG", 0, 0, 297, 210);
+    const filename = `thank-you-letter-${slugify(name)}.pdf`;
+    pdf.save(filename);
+  } catch (error) {
+    console.error("Error exporting thank you letter PDF:", error);
+    throw new Error("Failed to export thank you letter PDF. Please try again.");
+  }
+};
+
+export const converHTMLElementToImage = async (element: HTMLElement) => {
+  try {
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      width: element.getBoundingClientRect().width,
+      height: element.getBoundingClientRect().height,
+    });
+    return canvas.toDataURL("image/png");
+  } catch (error) {
+    console.error("Error converting HTML element to image:", error);
+    throw new Error(
+      "Failed to convert HTML element to image. Please try again."
+    );
+  }
+};

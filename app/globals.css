@@ -85,3 +85,50 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom styles for react-resizable */
+.resizable-text-box .react-resizable-handle {
+  position: absolute;
+  background-color: #3b82f6;
+  border: 2px solid #1d4ed8;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.resizable-text-box .react-resizable-handle-se {
+  bottom: -8px;
+  right: -8px;
+  cursor: se-resize;
+}
+
+.resizable-text-box:hover .react-resizable-handle {
+  opacity: 1;
+  background-color: #1d4ed8;
+  transform: scale(1.1);
+}
+
+/* Hide border by default, show on hover */
+.resizable-content {
+  border: 2px solid transparent !important;
+  transition: border-color 0.2s ease;
+}
+
+.resizable-text-box:hover .resizable-content {
+  border: 2px dashed #d1d5db !important;
+}
+
+.rich-text-content {
+  line-height: 1.6;
+}
+
+.rich-text-content p {
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content strong {
+  font-weight: 600;
+}

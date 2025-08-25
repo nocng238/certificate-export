@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ThankYouLetterDonnor from "@/components/thank-you-letter-dornor";
 import { Download, Edit3, Eye } from "lucide-react";
-import { exportThankYouLetterToPDF } from "@/lib/pdf-export";
+import {
+  exportThankYouLetterToPDF,
+  exportThankYouLetterToPDFFromAnElement,
+} from "@/lib/pdf-export";
 import "react-quill/dist/quill.snow.css";
 
 // Dynamically import ReactQuill to avoid SSR issues
@@ -21,6 +24,7 @@ export interface ThankYouData {
 
 export default function ThankYouLetterStandaloneEditor() {
   const [isEditing, setIsEditing] = useState(true);
+  const thankyouLetterRef = useRef<HTMLDivElement>(null);
   const [thankYouData, setThankYouData] = useState<ThankYouData>({
     name: "Easy Trip",
     description: `<p>Đã tham gia đóng góp tài trợ <strong>4.000.000 VND</strong> xây dựng Điểm trường Huổi Meo 2 (Pú Vang)- Tiểu học số 2 Mường Mươn, huyện Mường Chà, tỉnh Điện Biên vào ngày 04/08/2025.</p><p>Sự đồng hành của Bạn đã chung tay góp sức dựng trường đưa em tới lớp, mở đường ước mơ cho các em học sinh dân tộc thiểu số khó khăn.</p>`,
@@ -34,7 +38,13 @@ export default function ThankYouLetterStandaloneEditor() {
   };
 
   const handleExportPDF = () => {
-    exportThankYouLetterToPDF(thankYouData);
+    // exportThankYouLetterToPDF(thankYouData);
+    if (thankyouLetterRef.current) {
+      exportThankYouLetterToPDFFromAnElement(
+        thankYouData.name,
+        thankyouLetterRef.current as HTMLDivElement
+      );
+    }
   };
 
   // Quill toolbar configuration
@@ -170,6 +180,7 @@ export default function ThankYouLetterStandaloneEditor() {
             <CardContent>
               <div className="overflow-auto">
                 <ThankYouLetterDonnor
+                  ref={thankyouLetterRef}
                   name={thankYouData.name}
                   description={thankYouData.description}
                 />
